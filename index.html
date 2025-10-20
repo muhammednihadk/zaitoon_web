@@ -1,0 +1,2365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zaitoon Art Festival</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="galaxia.png" />
+    <link rel="icon" type="image/x-icon" href="galaxia.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --bg: #0a0a1a;
+        --card-bg: #121224;
+        --text: #e0e0ff;
+        --accent: #9d50ff;
+        --accent-light: #b96fff;
+        --border: rgba(255, 255, 255, 0.05);
+        --hover: rgba(255, 255, 255, 0.1);
+        --success: #40c463;
+        --warning: #fbb040;
+        --info: #67a1e8;
+        --primary-color: #2e7d32;
+        --secondary-color: #8bc34a;
+        --team1-color: #4caf50;
+        --team2-color: #ff9800;
+        --portal-color: #9c27b0;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .logo-icon {
+        width: 24px;
+        height: 24px;
+        background: var(--accent);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .nav-links a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--accent);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .hero-left {
+        flex: 1;
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--border);
+      }
+
+      .hero-right {
+        width: 120px;
+        height: 120px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--border);
+      }
+
+      .hero-logo {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+
+      .hero h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      .hero p {
+        color: #c0c0ff;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      /* Latest Result Box - Simplified */
+      .latest-result {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 1.25rem;
+        border: 1px solid var(--border);
+        margin-top: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .latest-result h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+        color: var(--accent);
+      }
+
+      .latest-result .program-name {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text);
+        font-size: 1rem;
+      }
+
+      .latest-result .winners {
+        font-size: 0.9rem;
+        color: #ccc;
+        line-height: 1.4;
+      }
+
+      /* Team Leaderboard */
+      .team-leaderboard {
+        margin-top: 2rem;
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .team-leaderboard h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--accent);
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .team-card {
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .team-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        border-color: var(--accent);
+      }
+
+      .team-card .name {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .team-card .position {
+        color: #aaa;
+        font-size: 0.85rem;
+      }
+
+      .team-card .points {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-top: 0.5rem;
+      }
+
+      /* All-Round Toppers */
+      .all-round-toppers {
+        margin-top: 2rem;
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .all-round-toppers h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--accent);
+      }
+
+      .topper-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .topper-card {
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .topper-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        border-color: var(--accent);
+      }
+
+      .topper-card .name {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .topper-card .id {
+        color: #aaa;
+        font-size: 0.85rem;
+      }
+
+      .topper-card .points {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-top: 0.5rem;
+      }
+
+      /* Category-wise Results */
+      .category-results {
+        margin-top: 2rem;
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .category-results h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--accent);
+      }
+
+      .category-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .category-item {
+        flex: 1 1 300px;
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+
+      .category-item h4 {
+        margin-bottom: 0.75rem;
+        color: var(--accent-light);
+      }
+
+      .category-teams {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .category-team {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .quick-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 0.75rem 1.25rem;
+        border-radius: 6px;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn:hover {
+        background: var(--accent);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .btn.primary {
+        background: var(--accent);
+        color: white;
+      }
+
+      .btn.primary:hover {
+        background: var(--accent-light);
+      }
+
+      .page {
+        display: none;
+      }
+
+      .page.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .programs-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .programs-table th,
+      .programs-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .programs-table th {
+        background: var(--card-bg);
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .programs-table tbody tr:hover {
+        background: var(--card-bg);
+      }
+
+      .edit-btn {
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.2s ease;
+      }
+
+      .edit-btn:hover {
+        background: var(--accent-light);
+      }
+
+      /* Students Page Grid */
+      .students-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .student-card {
+        background: var(--card-bg);
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .student-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        border-color: var(--accent);
+      }
+
+      .student-name {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .student-meta {
+        color: #aaa;
+        font-size: 0.85rem;
+      }
+
+      .student-points {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-top: 0.5rem;
+      }
+
+      .panel {
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+        background: var(--card-bg);
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        font-size: 0.9rem;
+        color: #ccc;
+        display: none;
+      }
+
+      .pos {
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+
+      .pos.first {
+        color: var(--warning);
+      }
+      .pos.second {
+        color: var(--info);
+      }
+      .pos.third {
+        color: var(--success);
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        display: none;
+        backdrop-filter: blur(5px);
+      }
+
+      .modal {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        width: 500px;
+        max-width: 90%;
+        border: 1px solid var(--border);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        animation: modalSlideIn 0.3s ease;
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal h3 {
+        margin-bottom: 1rem;
+      }
+
+      .modal select,
+      .modal input {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text);
+      }
+
+      .modal button {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        margin-right: 0.5rem;
+      }
+
+      .modal .btn {
+        background: var(--accent);
+        color: white;
+      }
+
+      .modal .btn.ghost {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .grade-badge {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        margin-left: 4px;
+      }
+
+      .grade-a {
+        background-color: var(--success);
+        color: white;
+      }
+      .grade-b {
+        background-color: var(--warning);
+        color: white;
+      }
+
+      .controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .controls input {
+        padding: 0.75rem;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text);
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .admin-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.25rem 0.75rem;
+        background: var(--success);
+        color: white;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-left: 1rem;
+      }
+
+      .admin-indicator::before {
+        content: "✓";
+        font-weight: bold;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 2rem;
+        color: #aaa;
+      }
+
+      /* Festival-specific styles */
+      .festival-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+      }
+
+      .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .festival-logo {
+        width: 80px;
+        height: 80px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .festival-logo i {
+        color: var(--primary-color);
+        font-size: 2.5rem;
+      }
+
+      .saada-logo {
+        width: 120px;
+        height: 80px;
+        background-color: white;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 5px;
+      }
+
+      .saada-logo-text {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #2e7d32;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .saada-logo-subtext {
+        font-size: 0.8rem;
+        color: #8bc34a;
+        margin-top: 3px;
+      }
+
+      .festival-title {
+        font-size: 2.8rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .festival-subtitle {
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin-bottom: 1.5rem;
+      }
+
+      .teams-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+      }
+
+      .team-festival-card {
+        flex: 1;
+        min-width: 300px;
+        padding: 2rem;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .team-festival-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .team1 {
+        background: linear-gradient(135deg, var(--team1-color), #388e3c);
+      }
+
+      .team2 {
+        background: linear-gradient(135deg, var(--team2-color), #f57c00);
+      }
+
+      .team-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .team-name {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .team-description {
+        margin-bottom: 1.5rem;
+      }
+
+      .team-leadership {
+        display: flex;
+        justify-content: space-around;
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+      }
+
+      .leader {
+        text-align: center;
+      }
+
+      .leader i {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .team-members {
+        list-style: none;
+        text-align: left;
+        margin-top: 1.5rem;
+      }
+
+      .team-members li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .team-members li:last-child {
+        border-bottom: none;
+      }
+
+      .portal-section {
+        background: linear-gradient(135deg, var(--portal-color), #7b1fa2);
+        color: white;
+      }
+
+      .portal-section h2 {
+        color: white;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .portal-intro {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .portal-actions {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .portal-action-card {
+        flex: 1;
+        min-width: 200px;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s, background-color 0.3s;
+      }
+
+      .portal-action-card:hover {
+        transform: translateY(-5px);
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .portal-action-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .portal-action-card h3 {
+        margin-bottom: 1rem;
+      }
+
+      .leaderboard-table,
+      .results-table,
+      .final-results-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .leaderboard-table th,
+      .leaderboard-table td,
+      .results-table th,
+      .results-table td,
+      .final-results-table th,
+      .final-results-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .leaderboard-table th,
+      .results-table th,
+      .final-results-table th {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .leaderboard-table tr:hover,
+      .results-table tr:hover,
+      .final-results-table tr:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .medal {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 24px;
+        margin-right: 8px;
+        font-weight: bold;
+      }
+
+      .gold {
+        background-color: #ffd700;
+        color: #000;
+      }
+
+      .silver {
+        background-color: #c0c0c0;
+        color: #000;
+      }
+
+      .bronze {
+        background-color: #cd7f32;
+        color: #000;
+      }
+
+      .winner-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ffd700, #ffa500);
+        color: #000;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+        margin-left: 10px;
+      }
+
+      .festival-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 500;
+      }
+
+      .festival-button:hover {
+        background-color: #1b5e20;
+      }
+
+      .portal-button {
+        background-color: var(--portal-color);
+      }
+
+      .portal-button:hover {
+        background-color: #7b1fa2;
+      }
+
+      .final-button {
+        background: linear-gradient(135deg, #ffd700, #ffa500);
+        color: #000;
+        font-weight: bold;
+      }
+
+      .final-button:hover {
+        background: linear-gradient(135deg, #ffa500, #ff8c00);
+      }
+
+      .festival-footer {
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 3rem;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .social-link {
+        color: white;
+        font-size: 1.5rem;
+        transition: color 0.3s;
+      }
+
+      .social-link:hover {
+        color: var(--accent-color);
+      }
+
+      .team-standings {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+      }
+
+      .team-standings h4 {
+        margin-bottom: 1rem;
+      }
+
+      .team-score {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .team-score:last-child {
+        border-bottom: none;
+      }
+
+      .champion-team {
+        text-align: center;
+        margin: 2rem 0;
+        padding: 2rem;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 215, 0, 0.2),
+          rgba(255, 165, 0, 0.2)
+        );
+        border-radius: 10px;
+        border: 2px solid #ffd700;
+      }
+
+      .champion-team h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #ffd700;
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          padding: 1rem;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .nav-links {
+          gap: 1rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+
+        .hero {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .hero-right {
+          width: 100%;
+          height: auto;
+          margin-top: 1rem;
+        }
+
+        .team-grid,
+        .topper-list,
+        .students-grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+
+        .quick-actions {
+          justify-content: center;
+        }
+
+        .controls {
+          flex-direction: column;
+        }
+
+        .controls input {
+          min-width: 100%;
+        }
+
+        .nav-links {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .nav-links li {
+          margin: 0.5rem 0;
+        }
+
+        .festival-title {
+          font-size: 2.2rem;
+        }
+
+        .teams-container {
+          flex-direction: column;
+        }
+
+        .portal-actions {
+          flex-direction: column;
+        }
+
+        .logo-container {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .team-leadership {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">z</div>
+        zaitoon
+      </div>
+      <nav class="nav-links">
+        <a href="#" data-page="home" class="active">Home</a>
+        <a href="#" data-page="programs">Programs</a>
+        <a href="#" data-page="students">Students</a>
+        <a href="#" data-page="festival">Festival</a>
+        <button id="adminBtn" class="btn">Admin Login</button>
+        <span id="adminIndicator" class="admin-indicator" style="display: none"
+          >Admin Mode</span
+        >
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- Home Page -->
+      <section id="home" class="page active">
+        <div class="hero">
+          <div class="hero-left">
+            <h2>Welcome to zaitoon</h2>
+            <p>
+              Palestine-themed language & creativity programs. Leaderboard
+              updates live as results change. Tip: Log in as admin to edit
+              results.
+            </p>
+
+            <!-- Latest Result Box - Simplified -->
+            <div class="latest-result" id="latestResult">
+              <h3>Latest Program Results</h3>
+              <div class="program-name">Program 1: ḤIFẒ & QIRĀʾAH</div>
+              <div class="winners">
+                1st: nill<br />
+                2nd: Nill<br />
+                3rd: nill
+              </div>
+            </div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-logo-placeholder">zaitoon</div>
+          </div>
+        </div>
+
+        <!-- Team Leaderboard -->
+        <div class="team-leaderboard">
+          <h3>Team Leaderboard</h3>
+          <div class="team-grid" id="leaderboard">
+            <!-- Team cards will be inserted here -->
+          </div>
+        </div>
+
+        <!-- All-Round Toppers -->
+        <div class="all-round-toppers">
+          <h3>All-Round Toppers</h3>
+          <div class="topper-list" id="toppers">
+            <!-- Topper cards will be inserted here -->
+          </div>
+        </div>
+
+        <!-- Category-wise Results -->
+        <div class="category-results">
+          <h3>Category-wise Team Results</h3>
+          <div class="category-list" id="categories">
+            <!-- Category items will be inserted here -->
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="btn primary" data-page="programs">
+            View Programs
+          </button>
+          <button class="btn primary" data-page="students">
+            View Students
+          </button>
+          <button class="btn primary" data-page="festival">
+            Festival Info
+          </button>
+        </div>
+      </section>
+
+      <!-- Programs Page -->
+      <section id="programs" class="page">
+        <h2>Programs Results</h2>
+        <div class="controls">
+          <input
+            type="text"
+            id="programSearch"
+            placeholder="Search program or student..."
+          />
+          <button id="resetData" class="btn">Reset Sample Data</button>
+          <!-- Button to set all results to Nil - only visible when admin is logged in -->
+          <button id="setAllNil" class="btn" style="display: none">
+            Set All to Nil
+          </button>
+        </div>
+        <table class="programs-table" id="programsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Program</th>
+              <th>Category</th>
+              <th>1st / 2nd / 3rd</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="programsTbody"></tbody>
+        </table>
+      </section>
+
+      <!-- Students Page -->
+      <section id="students" class="page">
+        <h2>Students</h2>
+        <div class="students-grid" id="studentsGrid">
+          <!-- Student cards will be inserted here -->
+        </div>
+      </section>
+
+      <!-- Festival Page -->
+      <section id="festival" class="page">
+        <div class="festival-header">
+          <div class="logo-container">
+            <div class="festival-logo">
+              <i class="fas fa-olive-branch"></i>
+            </div>
+            <div class="saada-logo">
+              <div class="saada-logo-text">SAADA</div>
+              <div class="saada-logo-subtext">Educational Trust</div>
+            </div>
+            <div class="festival-logo">
+              <i class="fas fa-palette"></i>
+            </div>
+          </div>
+          <h1 class="festival-title">Zaitoon Art Festival</h1>
+          <p class="festival-subtitle">
+            Celebrating Palestinian Culture Through Art & Language
+          </p>
+        </div>
+
+        <div class="about-content">
+          <div class="about-text">
+            <h2>About the Festival</h2>
+            <p>
+              The Zaitoon Art Festival is a celebration of Palestinian culture,
+              heritage, and resistance through various forms of artistic
+              expression. Named after the olive tree (Zaitoon in Arabic), which
+              symbolizes Palestinian resilience, the festival brings together
+              students from different backgrounds to explore and showcase their
+              talents.
+            </p>
+            <p>
+              Through competitions in Arabic, Urdu, English, and Malayalam
+              languages, as well as various art forms, participants connect with
+              Palestinian narratives while developing their creative skills.
+            </p>
+          </div>
+          <div class="about-image">
+            <div>
+              <i
+                class="fas fa-peace"
+                style="font-size: 4rem; margin-bottom: 1rem"
+              ></i>
+              <p>Art as Resistance<br />Culture as Identity</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="teams-container">
+          <div class="team-festival-card team1">
+            <div class="team-icon">
+              <i class="fas fa-fist-raised"></i>
+            </div>
+            <h3 class="team-name">Intifada</h3>
+            <p class="team-description">
+              The Resistance Team - Symbolizing the Palestinian struggle for
+              freedom and justice.
+            </p>
+            <div class="team-leadership">
+              <div class="leader">
+                <i class="fas fa-crown"></i>
+                <div>Team Leader</div>
+                <div>Student Name</div>
+              </div>
+              <div class="leader">
+                <i class="fas fa-users"></i>
+                <div>Members</div>
+                <div>15</div>
+              </div>
+            </div>
+            <ul class="team-members">
+              <li><i class="fas fa-user"></i> Student 1</li>
+              <li><i class="fas fa-user"></i> Student 2</li>
+              <li><i class="fas fa-user"></i> Student 3</li>
+              <li><i class="fas fa-ellipsis-h"></i> ...and more</li>
+            </ul>
+          </div>
+
+          <div class="team-festival-card team2">
+            <div class="team-icon">
+              <i class="fas fa-mountain"></i>
+            </div>
+            <h3 class="team-name">Sumud</h3>
+            <p class="team-description">
+              The Steadfastness Team - Representing Palestinian resilience and
+              perseverance.
+            </p>
+            <div class="team-leadership">
+              <div class="leader">
+                <i class="fas fa-crown"></i>
+                <div>Team Leader</div>
+                <div>Student Name</div>
+              </div>
+              <div class="leader">
+                <i class="fas fa-users"></i>
+                <div>Members</div>
+                <div>14</div>
+              </div>
+            </div>
+            <ul class="team-members">
+              <li><i class="fas fa-user"></i> Student 1</li>
+              <li><i class="fas fa-user"></i> Student 2</li>
+              <li><i class="fas fa-user"></i> Student 3</li>
+              <li><i class="fas fa-ellipsis-h"></i> ...and more</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="portal-section">
+          <h2>Mark Portal</h2>
+          <div class="portal-intro">
+            <p>
+              Access competition results, leaderboards, and judging information
+              through the Mark Portal.
+            </p>
+          </div>
+          <div class="portal-actions">
+            <div class="portal-action-card">
+              <i class="fas fa-trophy"></i>
+              <h3>Results</h3>
+              <p>View competition results and winners</p>
+              <button
+                class="festival-button portal-button"
+                data-page="programs"
+              >
+                View Results
+              </button>
+            </div>
+            <div class="portal-action-card">
+              <i class="fas fa-chart-line"></i>
+              <h3>Leaderboard</h3>
+              <p>Check team and individual rankings</p>
+              <button class="festival-button portal-button" data-page="home">
+                View Leaderboard
+              </button>
+            </div>
+            <div class="portal-action-card">
+              <i class="fas fa-user-friends"></i>
+              <h3>Participants</h3>
+              <p>See all students and their achievements</p>
+              <button
+                class="festival-button portal-button"
+                data-page="students"
+              >
+                View Participants
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="modalContainer" class="modal-backdrop"></div>
+
+    <footer class="festival-footer">
+      <p>
+        Zaitoon Art Festival - Celebrating Palestinian Culture Through Art &
+        Language
+      </p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p>&copy; 2023 Zaitoon Art Festival. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Configuration
+      const ADMIN_PASSWORD = "544";
+      const FIRST_POINTS = 5,
+        SECOND_POINTS = 3,
+        THIRD_POINTS = 1;
+      const NIL_VALUE = "NIL"; // Constant for Nil value
+
+      // --- YOUR SPECIFIC DATA FROM EXCEL ---
+      // Extracted from GALAX (1).xlsx
+      const SAMPLE_STUDENTS_DATA = [
+        ["sinan t.s", "sumoud", 719],
+        ["muhammed ua", "sumoud", 742],
+        ["shammem", "intifada", 746],
+        ["hannan", "sumoud", 747],
+        ["Ameen", "intifada", 748],
+        ["rayyan", "intifada", 749],
+        ["hamid", "sumoud", 750],
+        ["muhammed as", "sumoud ", 751],
+        ["irfan", "intifada", 753],
+        ["mazahim", "intifada", 754],
+        ["wasih", "sumoud", 755],
+        ["shahabaz", "intifada", 756],
+        ["hadhi", "sumoud", 757],
+        [" misbah", "sumoud", 758],
+        ["adhinan", "intifada", 760],
+        ["ajmal", "sumoud", 761],
+        ["hamdhan", "sumoud", 762],
+        ["ishal", "intifada", 765],
+        ["qasim", "intifada", 766],
+        ["rabeeh", "intifada", 769],
+        ["jasim", "intifada", 770],
+        ["shamil", "intifada", 771],
+        ["aman", "sumoud", 772],
+        ["salih np", "sumoud", 773],
+        ["anoos", "intifada", 774],
+        ["ali", "sumoud", 775],
+        ["nafih", "sumoud", 776],
+        ["sahal", "sumoud", 778],
+        ["rishal", "intifada", 787],
+      ];
+
+      // Clean up the student data - fix team names and trim whitespace
+      const cleanStudentData = SAMPLE_STUDENTS_DATA.map(([name, team, id]) => {
+        // Clean team names - normalize variations
+        const normalizedTeam = team.trim().toLowerCase();
+        let teamName = "";
+        if (normalizedTeam === "intifada") teamName = "intifada";
+        else if (
+          normalizedTeam === "sumoud " ||
+          normalizedTeam === "sumoud" ||
+          normalizedTeam === "sumud"
+        )
+          teamName = "sumoud";
+        else
+          teamName =
+            normalizedTeam.charAt(0).toUpperCase() + normalizedTeam.slice(1);
+
+        return {
+          name: name.trim(),
+          team: teamName,
+          id: id.toString(), // Convert to string for consistency
+        };
+      });
+
+      // Your Specific Programs (from Book1.xlsx and Book2.xlsx)
+      // Format: { name: "Program Name", category: "Category" }
+      const YOUR_PROGRAMS = [
+        { name: "ḤIFẒ & QIRĀʾAH", category: "Arabic" },
+        { name: "WaʿZ", category: "Arabic" },
+        { name: "SPEECH ARB", category: "Arabic" },
+        { name: "ESSAY ARB", category: "Arabic" },
+        { name: "POEM ARB", category: "Arabic" },
+        { name: "SHORT STORY ARB", category: "Arabic" },
+        { name: "SPEECH URD", category: "Urdu" },
+        { name: "ESSAY URD", category: "Urdu" },
+        { name: "POEM URD", category: "Urdu" },
+        { name: "SHORT STORY URD", category: "Urdu" },
+        { name: "SONG URD", category: "Urdu" },
+        { name: "SPEECH ENG", category: "English" },
+        { name: "ESSAY ENG", category: "English" },
+        { name: "POEM ENG", category: "English" },
+        { name: "SHORT STORY ENG", category: "English" },
+        { name: "SONG ENG", category: "English" },
+        { name: "SPEECH MLM", category: "Malayalam" },
+        { name: "POEM MLM", category: "Malayalam" },
+        { name: "SHORT STORY MLM", category: "Malayalam" },
+        { name: "PADAPPATTU", category: "Malayalam" },
+        { name: "SONG ARB", category: "Arabic" },
+        { name: "PADHYAPARAYANAM", category: "Malayalam" },
+        { name: "ORU NIMISHAM", category: "Malayalam" },
+        { name: "HISTORY TALK", category: "General" },
+        { name: "GROUP SPEECH & SONG", category: "Group" }, // Combined from Book 2
+        { name: "GROUP SONG", category: "Group" },
+        { name: "QAWWALI", category: "Group" },
+        { name: "MUSHA'ARA", category: "Group" },
+        { name: "ACRYLIC PAINTING", category: "General" },
+        { name: "MATH TALENT", category: "General" },
+        { name: "GK QUIZ", category: "General" },
+        { name: "GRAMMAR QUIZ", category: "General" },
+        { name: "SCIENCE MASTER", category: "General" },
+        { name: "POSTER DESIGNING DIGITAL", category: "General" },
+      ];
+
+      // Local Storage
+      const STORAGE_KEY = "galaxia_data_v3"; // Updated key to avoid conflicts
+
+      function saveData(data) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+
+      function loadData() {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        try {
+          return JSON.parse(raw);
+        } catch (e) {
+          console.error("Error loading ", e);
+          return null;
+        }
+      }
+
+      function generateInitialData() {
+        // Create students with their actual Ad No from Excel and cleaned teams
+        const students = cleanStudentData.map((student, idx) => {
+          return {
+            id: student.id, // Use the Ad No from Excel
+            name: student.name,
+            team: student.team,
+          };
+        });
+
+        // Create programs with Nil winners initially and grade options (A/B)
+        const programs = YOUR_PROGRAMS.map((p, idx) => {
+          return {
+            id: `p${idx + 1}`,
+            name: p.name,
+            category: p.category,
+            placements: {
+              first: NIL_VALUE,
+              second: NIL_VALUE,
+              third: NIL_VALUE,
+            },
+            grades: {
+              first: "",
+              second: "",
+              third: "",
+            },
+          };
+        });
+
+        return { students, programs };
+      }
+
+      function randomDistinctIndices(n, k) {
+        if (k > n) k = n;
+        const arr = Array.from({ length: n }, (_, i) => i);
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr.slice(0, k);
+      }
+
+      // State
+      let state = loadData();
+      if (!state) {
+        state = generateInitialData();
+        saveData(state);
+      }
+
+      let adminLoggedIn = false;
+
+      // DOM Helpers
+      function byId(id) {
+        return document.getElementById(id);
+      }
+      function qs(sel, root = document) {
+        return root.querySelector(sel);
+      }
+      function qsa(sel, root = document) {
+        return Array.from(root.querySelectorAll(sel));
+      }
+
+      // Utility Functions
+      function getStudentNameById(studentId) {
+        if (!studentId || studentId === NIL_VALUE) return "Nil";
+        const student = state.students.find((s) => s.id === studentId);
+        return student ? student.name : "Unknown";
+      }
+
+      function getStudentById(studentId) {
+        if (!studentId || studentId === NIL_VALUE) return null;
+        return state.students.find((s) => s.id === studentId);
+      }
+
+      // --- Custom Points Calculation Helper ---
+      function getPoints(pos, grade) {
+        if (pos === 1 && grade === "A") return 10;
+        if (pos === 1 && grade === "B") return 8;
+        if (pos === 2 && grade === "A") return 8;
+        if (pos === 2 && grade === "B") return 6;
+        if (pos === 3 && grade === "A") return 6;
+        if (pos === 3 && grade === "B") return 4;
+        if (!pos && grade === "A") return 5;
+        if (!pos && grade === "B") return 3;
+        return 0;
+      }
+
+      // --- Team Points Calculation ---
+      function calculateTeamPoints() {
+        const points = Object.fromEntries(
+          [...new Set(state.students.map((s) => s.team))].map((t) => [t, 0])
+        );
+        const studentMap = Object.fromEntries(
+          state.students.map((s) => [s.id, s])
+        );
+
+        state.programs.forEach((p) => {
+          const { first, second, third } = p.placements;
+          const { first: g1, second: g2, third: g3 } = p.grades;
+          if (first && first !== NIL_VALUE && studentMap[first]) {
+            points[studentMap[first].team] += getPoints(1, g1);
+          } else if (first === NIL_VALUE && g1) {
+            points["Grade Only"] =
+              (points["Grade Only"] || 0) + getPoints(null, g1);
+          }
+          if (second && second !== NIL_VALUE && studentMap[second]) {
+            points[studentMap[second].team] += getPoints(2, g2);
+          } else if (second === NIL_VALUE && g2) {
+            points["Grade Only"] =
+              (points["Grade Only"] || 0) + getPoints(null, g2);
+          }
+          if (third && third !== NIL_VALUE && studentMap[third]) {
+            points[studentMap[third].team] += getPoints(3, g3);
+          } else if (third === NIL_VALUE && g3) {
+            points["Grade Only"] =
+              (points["Grade Only"] || 0) + getPoints(null, g3);
+          }
+          if (p.onlyGrade === "A") {
+            points["Grade Only"] = (points["Grade Only"] || 0) + 5;
+          }
+          if (p.onlyGrade === "B") {
+            points["Grade Only"] = (points["Grade Only"] || 0) + 3;
+          }
+        });
+        return points;
+      }
+
+      // --- Category Points Calculation ---
+      function calculateCategoryPoints() {
+        const uniqueCategories = [
+          ...new Set(state.programs.map((p) => p.category)),
+        ];
+        const points = {};
+        uniqueCategories.forEach((cat) => {
+          points[cat] = Object.fromEntries(
+            [...new Set(state.students.map((s) => s.team))].map((t) => [t, 0])
+          );
+          points[cat]["Grade Only"] = 0;
+        });
+
+        const studentMap = Object.fromEntries(
+          state.students.map((s) => [s.id, s])
+        );
+
+        state.programs.forEach((p) => {
+          const { first, second, third } = p.placements;
+          const { first: g1, second: g2, third: g3 } = p.grades;
+          const category = p.category;
+
+          if (first && first !== NIL_VALUE && studentMap[first]) {
+            points[category][studentMap[first].team] += getPoints(1, g1);
+          } else if (first === NIL_VALUE && g1) {
+            points[category]["Grade Only"] += getPoints(null, g1);
+          }
+          if (second && second !== NIL_VALUE && studentMap[second]) {
+            points[category][studentMap[second].team] += getPoints(2, g2);
+          } else if (second === NIL_VALUE && g2) {
+            points[category]["Grade Only"] += getPoints(null, g2);
+          }
+          if (third && third !== NIL_VALUE && studentMap[third]) {
+            points[category][studentMap[third].team] += getPoints(3, g3);
+          } else if (third === NIL_VALUE && g3) {
+            points[category]["Grade Only"] += getPoints(null, g3);
+          }
+          if (p.onlyGrade === "A") {
+            points[category]["Grade Only"] =
+              (points[category]["Grade Only"] || 0) + 5;
+          }
+          if (p.onlyGrade === "B") {
+            points[category]["Grade Only"] =
+              (points[category]["Grade Only"] || 0) + 3;
+          }
+        });
+
+        return points;
+      }
+
+      // --- Top Performers Calculation ---
+      function calculateTopPerformers() {
+        const points = Object.fromEntries(state.students.map((s) => [s.id, 0]));
+
+        state.programs.forEach((p) => {
+          const { first, second, third } = p.placements;
+          const { first: g1, second: g2, third: g3 } = p.grades;
+          if (first && first !== NIL_VALUE) points[first] += getPoints(1, g1);
+          if (second && second !== NIL_VALUE)
+            points[second] += getPoints(2, g2);
+          if (third && third !== NIL_VALUE) points[third] += getPoints(3, g3);
+        });
+
+        const sorted = Object.entries(points)
+          .map(([id, pts]) => ({ id, pts }))
+          .sort((a, b) => b.pts - a.pts);
+
+        return sorted.slice(0, 5); // Top 5
+      }
+
+      // Renderers
+      function renderLeaderboard() {
+        const container = byId("leaderboard");
+        container.innerHTML = "";
+        const points = calculateTeamPoints();
+        // Sort teams by points descending
+        const sortedTeams = Object.entries(points)
+          .sort(([, a], [, b]) => b - a)
+          .map(([team]) => team);
+
+        if (sortedTeams.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state">No team data available</div>';
+          return;
+        }
+
+        sortedTeams.forEach((team, index) => {
+          const card = document.createElement("div");
+          card.className = "team-card";
+          card.innerHTML = `
+          <div class="name">${team}</div>
+          <div class="position">#${index + 1}</div>
+          <div class="points">${points[team]} pts</div>
+        `;
+          container.appendChild(card);
+        });
+      }
+
+      function renderPrograms(filterText = "") {
+        const tbody = byId("programsTbody");
+        tbody.innerHTML = "";
+        const search = (filterText || "").toLowerCase();
+        const filteredPrograms = state.programs.filter((p) => {
+          const firstName = getStudentNameById(p.placements.first);
+          const secondName = getStudentNameById(p.placements.second);
+          const thirdName = getStudentNameById(p.placements.third);
+
+          const rowText = (
+            p.name +
+            " " +
+            p.category +
+            " " +
+            firstName +
+            " " +
+            secondName +
+            " " +
+            thirdName
+          ).toLowerCase();
+          return !search || rowText.includes(search);
+        });
+
+        if (filteredPrograms.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="empty-state">No programs match your search</td></tr>`;
+          return;
+        }
+
+        filteredPrograms.forEach((p, idx) => {
+          const firstName = getStudentNameById(p.placements.first);
+          const secondName = getStudentNameById(p.placements.second);
+          const thirdName = getStudentNameById(p.placements.third);
+
+          const tr = document.createElement("tr");
+
+          // Format the winner display with grade badges
+          let firstDisplay = firstName;
+          if (p.grades.first && p.grades.first !== "") {
+            firstDisplay += `<span class="grade-badge grade-${p.grades.first.toLowerCase()}">${
+              p.grades.first
+            }</span>`;
+          }
+
+          let secondDisplay = secondName;
+          if (p.grades.second && p.grades.second !== "") {
+            secondDisplay += `<span class="grade-badge grade-${p.grades.second.toLowerCase()}">${
+              p.grades.second
+            }</span>`;
+          }
+
+          let thirdDisplay = thirdName;
+          if (p.grades.third && p.grades.third !== "") {
+            thirdDisplay += `<span class="grade-badge grade-${p.grades.third.toLowerCase()}">${
+              p.grades.third
+            }</span>`;
+          }
+
+          tr.innerHTML = `
+          <td>${idx + 1}</td>
+          <td>${p.name}</td>
+          <td>${p.category}</td>
+          <td>${firstDisplay} / ${secondDisplay} / ${thirdDisplay}</td>
+          <td><button class="edit-btn" data-pid="${p.id}">Edit</button></td>
+        `;
+          tbody.appendChild(tr);
+        });
+
+        qsa(".edit-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            const pid = btn.getAttribute("data-pid");
+            if (!adminLoggedIn) {
+              alert("Admin only: please login to edit results.");
+              return;
+            }
+            openEditModal(pid);
+          });
+        });
+      }
+
+      function renderStudents() {
+        const grid = byId("studentsGrid");
+        grid.innerHTML = "";
+        // Precompute placements per student
+        const placementsByStudent = {};
+        state.students.forEach((s) => (placementsByStudent[s.id] = []));
+
+        state.programs.forEach((p) => {
+          const { first, second, third } = p.placements;
+          const { first: g1, second: g2, third: g3 } = p.grades;
+          if (first && first !== NIL_VALUE)
+            placementsByStudent[first].push({
+              program: p.name,
+              pos: 1,
+              grade: g1,
+            });
+          if (second && second !== NIL_VALUE)
+            placementsByStudent[second].push({
+              program: p.name,
+              pos: 2,
+              grade: g2,
+            });
+          if (third && third !== NIL_VALUE)
+            placementsByStudent[third].push({
+              program: p.name,
+              pos: 3,
+              grade: g3,
+            });
+        });
+
+        if (state.students.length === 0) {
+          grid.innerHTML =
+            '<div class="empty-state">No student data available</div>';
+          return;
+        }
+
+        state.students.forEach((s) => {
+          const totalPoints = (placementsByStudent[s.id] || []).reduce(
+            (acc, rec) => {
+              return acc + getPoints(rec.pos, rec.grade);
+            },
+            0
+          );
+
+          const card = document.createElement("div");
+          card.className = "student-card";
+          card.innerHTML = `
+          <div class="student-name">${s.name}</div>
+          <div class="student-meta">Ad No: ${s.id} • ${s.team} • ${
+            placementsByStudent[s.id].length
+          } placements</div>
+          <div class="student-points">${totalPoints} pts</div>
+          <div class="panel" style="display:none;">
+            ${
+              placementsByStudent[s.id].length
+                ? placementsByStudent[s.id]
+                    .map((r) => {
+                      const cls =
+                        r.pos === 1
+                          ? "first"
+                          : r.pos === 2
+                          ? "second"
+                          : "third";
+                      let gradeBadge = "";
+                      if (r.grade && r.grade !== "") {
+                        gradeBadge = `<span class="grade-badge grade-${r.grade.toLowerCase()}">${
+                          r.grade
+                        }</span>`;
+                      }
+                      return `<div><span class="pos ${cls}">${
+                        r.pos === 1 ? "1st" : r.pos === 2 ? "2nd" : "3rd"
+                      }</span> ${r.program} ${gradeBadge}</div>`;
+                    })
+                    .join("")
+                : '<div class="muted">No placements yet.</div>'
+            }
+          </div>
+        `;
+          grid.appendChild(card);
+
+          card.addEventListener("click", () => {
+            const panel = card.querySelector(".panel");
+            panel.style.display =
+              panel.style.display === "none" ? "block" : "none";
+          });
+        });
+      }
+
+      // Simplified Latest Result Renderer (shows first program with results, or a random one if none)
+      function renderLatestResult() {
+        const container = byId("latestResult");
+        if (!container) return; // Safety check
+
+        // Find the first program with non-NIL results
+        let latestProgram = state.programs.find(
+          (p) =>
+            p.placements.first !== NIL_VALUE ||
+            p.placements.second !== NIL_VALUE ||
+            p.placements.third !== NIL_VALUE
+        );
+
+        // If no program has results, pick a random one
+        if (!latestProgram) {
+          const randomIndex = Math.floor(Math.random() * state.programs.length);
+          latestProgram = state.programs[randomIndex];
+        }
+
+        const firstName = getStudentNameById(latestProgram.placements.first);
+        const secondName = getStudentNameById(latestProgram.placements.second);
+        const thirdName = getStudentNameById(latestProgram.placements.third);
+
+        // Format with grade badges
+        let firstDisplay = firstName;
+        if (latestProgram.grades.first && latestProgram.grades.first !== "") {
+          firstDisplay += `<span class="grade-badge grade-${latestProgram.grades.first.toLowerCase()}">${
+            latestProgram.grades.first
+          }</span>`;
+        }
+
+        let secondDisplay = secondName;
+        if (latestProgram.grades.second && latestProgram.grades.second !== "") {
+          secondDisplay += `<span class="grade-badge grade-${latestProgram.grades.second.toLowerCase()}">${
+            latestProgram.grades.second
+          }</span>`;
+        }
+
+        let thirdDisplay = thirdName;
+        if (latestProgram.grades.third && latestProgram.grades.third !== "") {
+          thirdDisplay += `<span class="grade-badge grade-${latestProgram.grades.third.toLowerCase()}">${
+            latestProgram.grades.third
+          }</span>`;
+        }
+
+        container.querySelector(".program-name").textContent =
+          latestProgram.name;
+        container.querySelector(".winners").innerHTML = `
+            1st: ${firstDisplay}<br>
+            2nd: ${secondDisplay}<br>
+            3rd: ${thirdDisplay}
+        `;
+      }
+
+      function renderAllRoundToppers() {
+        const container = byId("toppers");
+        container.innerHTML = "";
+        const topPerformers = calculateTopPerformers();
+
+        if (topPerformers.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state">No topper data available</div>';
+          return;
+        }
+
+        topPerformers.forEach((performer, index) => {
+          const student = state.students.find((s) => s.id === performer.id);
+          if (!student) return; // Safety check
+
+          // Check if this student has any placements with grades
+          let highestGrade = "";
+          state.programs.forEach((p) => {
+            if (p.placements.first === student.id && p.grades.first)
+              highestGrade = p.grades.first;
+            if (p.placements.second === student.id && p.grades.second)
+              highestGrade = p.grades.second;
+            if (p.placements.third === student.id && p.grades.third)
+              highestGrade = p.grades.third;
+          });
+
+          const card = document.createElement("div");
+          card.className = "topper-card";
+          card.innerHTML = `
+                <div class="name">${student.name}</div>
+                <div class="id">Ad No: ${student.id}</div>
+                <div class="points">${performer.pts} pts</div>
+                ${
+                  highestGrade
+                    ? `<div class="grade-badge grade-${highestGrade.toLowerCase()}">${highestGrade}</div>`
+                    : ""
+                }
+            `;
+          container.appendChild(card);
+        });
+      }
+
+      function renderCategoryResults() {
+        const container = byId("categories");
+        container.innerHTML = "";
+        const categoryPoints = calculateCategoryPoints();
+
+        // Iterate through the unique categories from the programs
+        const uniqueCategories = [
+          ...new Set(state.programs.map((p) => p.category)),
+        ];
+
+        if (uniqueCategories.length === 0) {
+          container.innerHTML =
+            '<div class="empty-state">No category data available</div>';
+          return;
+        }
+
+        uniqueCategories.forEach((category) => {
+          const catPoints = categoryPoints[category];
+          if (!catPoints) return; // Safety check
+
+          const catDiv = document.createElement("div");
+          catDiv.className = "category-item";
+
+          const sortedTeams = Object.entries(catPoints)
+            .sort(([, a], [, b]) => b - a) // Sort by points descending
+            .map(([team]) => team);
+
+          let teamsHtml = "";
+          sortedTeams.forEach((team, index) => {
+            teamsHtml += `
+                    <div class="category-team">
+                        <span>${index + 1}. ${team}</span>
+                        <span>${catPoints[team]} pts</span>
+                    </div>
+                 `;
+          });
+
+          catDiv.innerHTML = `
+                <h4>${category}</h4>
+                <div class="category-teams">
+                    ${teamsHtml}
+                </div>
+            `;
+          container.appendChild(catDiv);
+        });
+      }
+
+      function openEditModal(programId) {
+        const program = state.programs.find((p) => p.id === programId);
+        if (!program) {
+          alert("Program not found");
+          return;
+        }
+
+        // Create options for selects
+        const studentOptions = state.students
+          .map(
+            (s) =>
+              `<option value="${s.id}" ${
+                program.placements.first === s.id ? "selected" : ""
+              }>${s.name} (Ad No: ${s.id})</option>`
+          )
+          .join("");
+
+        const nilOption = `<option value="${NIL_VALUE}" ${
+          program.placements.first === NIL_VALUE ? "selected" : ""
+        }>Nil (No Winner)</option>`;
+
+        const modalHtml = `
+        <div class="modal">
+          <h3>Edit Results — ${program.name}</h3>
+          <div class="row">
+            <div>
+              <label for="selFirst">1st Place:</label>
+              <select id="selFirst">
+                  <option value="">Select 1st Place</option>
+                  ${studentOptions}
+                  ${nilOption}
+              </select>
+              <select id="gradeFirst">
+                  <option value="">Select Grade</option>
+                  <option value="A" ${
+                    program.grades.first === "A" ? "selected" : ""
+                  }>A</option>
+                  <option value="B" ${
+                    program.grades.first === "B" ? "selected" : ""
+                  }>B</option>
+              </select>
+            </div>
+            <div>
+              <label for="selSecond">2nd Place:</label>
+              <select id="selSecond">
+                  <option value="">Select 2nd Place</option>
+                  ${studentOptions}
+                  ${nilOption}
+              </select>
+              <select id="gradeSecond">
+                  <option value="">Select Grade</option>
+                  <option value="A" ${
+                    program.grades.second === "A" ? "selected" : ""
+                  }>A</option>
+                  <option value="B" ${
+                    program.grades.second === "B" ? "selected" : ""
+                  }>B</option>
+              </select>
+            </div>
+            <div>
+              <label for="selThird">3rd Place:</label>
+              <select id="selThird">
+                  <option value="">Select 3rd Place</option>
+                  ${studentOptions}
+                  ${nilOption}
+              </select>
+              <select id="gradeThird">
+                  <option value="">Select Grade</option>
+                  <option value="A" ${
+                    program.grades.third === "A" ? "selected" : ""
+                  }>A</option>
+                  <option value="B" ${
+                    program.grades.third === "B" ? "selected" : ""
+                  }>B</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="margin-top:1rem;">
+            <div>
+              <label for="onlyGrade">Only Grade (no placement):</label>
+              <select id="onlyGrade">
+                <option value="">Select Grade Only</option>
+                <option value="A" ${
+                  program.onlyGrade === "A" ? "selected" : ""
+                }>A Grade Only</option>
+                <option value="B" ${
+                  program.onlyGrade === "B" ? "selected" : ""
+                }>B Grade Only</option>
+              </select>
+              <span style="color:#ff9800; font-size:0.85em;">Awards 5 pts for A, 3 pts for B (no winner)</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
+            <button class="btn ghost" id="cancelEdit">Cancel</button>
+            <button class="btn" id="saveEdit">Save</button>
+          </div>
+        </div>
+      `;
+        const container = byId("modalContainer");
+        container.innerHTML = modalHtml;
+        container.style.display = "flex";
+
+        byId("cancelEdit").addEventListener("click", closeModal);
+        byId("modalContainer").addEventListener("click", (e) => {
+          if (e.target.id === "modalContainer") closeModal();
+        });
+
+        byId("saveEdit").addEventListener("click", () => {
+          // Get selected values
+          const first = byId("selFirst").value;
+          const second = byId("selSecond").value;
+          const third = byId("selThird").value;
+
+          const gradeFirst = byId("gradeFirst").value;
+          const gradeSecond = byId("gradeSecond").value;
+          const gradeThird = byId("gradeThird").value;
+          const onlyGrade = byId("onlyGrade").value;
+          program.onlyGrade = onlyGrade;
+
+          // Validation: Check for distinct non-NIL values
+          const nonNilValues = [first, second, third].filter(
+            (v) => v && v !== NIL_VALUE
+          );
+          const uniqueNonNilValues = [...new Set(nonNilValues)];
+          if (nonNilValues.length !== uniqueNonNilValues.length) {
+            alert("Non-Nil winners must be different students.");
+            return;
+          }
+
+          // Update program placements, grades, and onlyGrade
+          program.placements = { first, second, third };
+          program.grades = {
+            first: gradeFirst,
+            second: gradeSecond,
+            third: gradeThird,
+          };
+          program.onlyGrade = onlyGrade; // Update onlyGrade
+          saveData(state);
+          refreshAll(); // Refresh all sections to reflect changes
+          closeModal();
+        });
+      }
+
+      function closeModal() {
+        byId("modalContainer").style.display = "none";
+        byId("modalContainer").innerHTML = "";
+      }
+
+      function openAdminLogin() {
+        const modalHtml = `
+        <div class="modal">
+          <h3>Admin Login</h3>
+          <p class="muted small">Enter the admin password to unlock editing (hardcoded)</p>
+          <div class="row">
+            <input id="adminPass" type="password" placeholder="Password" />
+          </div>
+          <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
+            <button class="btn ghost" id="adminCancel">Cancel</button>
+            <button class="btn" id="adminLogin">Login</button>
+          </div>
+        </div>
+      `;
+        const container = byId("modalContainer");
+        container.innerHTML = modalHtml;
+        container.style.display = "flex";
+
+        byId("adminCancel").addEventListener("click", closeModal);
+        byId("modalContainer").addEventListener("click", (e) => {
+          if (e.target.id === "modalContainer") closeModal();
+        });
+
+        byId("adminLogin").addEventListener("click", () => {
+          const value = byId("adminPass").value.trim();
+          if (value === ADMIN_PASSWORD) {
+            adminLoggedIn = true;
+            closeModal();
+            refreshAll();
+            // Show the "Set All to Nil" button
+            const setAllNilBtn = byId("setAllNil");
+            if (setAllNilBtn) {
+              setAllNilBtn.style.display = "inline-block";
+            }
+            // Show admin indicator
+            const adminIndicator = byId("adminIndicator");
+            if (adminIndicator) {
+              adminIndicator.style.display = "inline-flex";
+            }
+            alert("Admin login successful. You can now edit results.");
+          } else {
+            alert("Wrong password.");
+          }
+        });
+      }
+
+      function resetData() {
+        if (
+          !confirm(
+            "Reset all data to a new random sample? This will overwrite local data."
+          )
+        )
+          return;
+        state = generateInitialData(); // This will reset programs to Nil
+        saveData(state);
+        adminLoggedIn = false;
+        refreshAll();
+        // Hide the "Set All to Nil" button
+        const setAllNilBtn = byId("setAllNil");
+        if (setAllNilBtn) {
+          setAllNilBtn.style.display = "none";
+        }
+        // Hide admin indicator
+        const adminIndicator = byId("adminIndicator");
+        if (adminIndicator) {
+          adminIndicator.style.display = "none";
+        }
+      }
+
+      // New function to set all program results to NIL
+      function setAllProgramsToNil() {
+        if (
+          !confirm(
+            "Are you sure you want to set ALL program results to Nil? This will clear all current placements."
+          )
+        ) {
+          return;
+        }
+
+        state.programs.forEach((program) => {
+          program.placements = {
+            first: NIL_VALUE,
+            second: NIL_VALUE,
+            third: NIL_VALUE,
+          };
+          program.grades = {
+            first: "",
+            second: "",
+            third: "",
+          };
+        });
+
+        saveData(state);
+        refreshAll();
+        alert("All program results have been set to Nil.");
+      }
+
+      function refreshAll() {
+        // Call all render functions to update the UI
+        renderPrograms(byId("programSearch")?.value || "");
+        renderStudents();
+        // Home page specific renders
+        if (byId("home").classList.contains("active")) {
+          renderLatestResult(); // Render latest result first
+          renderLeaderboard();
+          renderAllRoundToppers();
+          renderCategoryResults();
+        }
+      }
+
+      function showPage(pageId) {
+        qsa(".page").forEach((p) => p.classList.remove("active"));
+        const pageToShow = byId(pageId);
+        if (pageToShow) {
+          pageToShow.classList.add("active");
+          // Refresh specific content when page is shown
+          if (pageId === "home") {
+            renderLatestResult(); // Render latest result first
+            renderLeaderboard();
+            renderAllRoundToppers();
+            renderCategoryResults();
+          } else if (pageId === "programs") {
+            renderPrograms(byId("programSearch")?.value || "");
+          } else if (pageId === "students") {
+            renderStudents();
+          }
+        }
+        // Update active nav link
+        qsa(".nav-links a").forEach((a) =>
+          a.classList.toggle("active", a.getAttribute("data-page") === pageId)
+        );
+      }
+
+      // Initialize UI
+      function initUI() {
+        qsa("[data-page]").forEach((el) => {
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+            const page = el.getAttribute("data-page");
+            showPage(page);
+          });
+        });
+
+        byId("adminBtn").addEventListener("click", openAdminLogin);
+        const searchInput = byId("programSearch");
+        if (searchInput) {
+          searchInput.addEventListener("input", (e) =>
+            renderPrograms(e.target.value)
+          );
+        }
+        const resetBtn = byId("resetData");
+        if (resetBtn) {
+          resetBtn.addEventListener("click", resetData);
+        }
+        // Add event listener for the new "Set All to Nil" button
+        const setAllNilBtn = byId("setAllNil");
+        if (setAllNilBtn) {
+          setAllNilBtn.addEventListener("click", setAllProgramsToNil);
+        }
+
+        // Add event listeners for festival page buttons
+        qsa(".festival-button").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const page = btn.getAttribute("data-page");
+            showPage(page);
+          });
+        });
+      }
+
+      // Boot
+      initUI();
+      refreshAll(); // Initial render of all sections
+
+      window.GALAXIA = {
+        state,
+        save: () => saveData(state),
+        recalc: () => refreshAll(),
+      };
+    </script>
+  </body>
+</html>
